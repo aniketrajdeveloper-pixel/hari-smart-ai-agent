@@ -3,7 +3,7 @@ from google import genai
 
 st.title("Hari Smart Products - Customer Support Agent")
 
-client = genai.Client(api_key="APNI_GEMINI_API_KEY_YAHAN_DAAL")
+client = genai.Client(api_key="AIzaSyArVQEP43AK4N1Q1MFPj3vMsej4CfGDZzM")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -18,7 +18,7 @@ if prompt := st.chat_input("Aapki kya madad kar sakte hain?"):
         st.markdown(prompt)
 
     response = client.models.generate_content(
-        model="gemini-2.5-flash",
+        model="gemini-1.5-flash",
         contents=prompt,
     )
     
