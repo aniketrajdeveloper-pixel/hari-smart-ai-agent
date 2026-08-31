@@ -1,9 +1,9 @@
 import streamlit as st
-from google import genai
+from openai import OpenAI
 
 st.title("Hari Smart Products - Customer Support Agent")
 
-client = genai.Client(api_key="AIzaSyArVQEP43AK4N1Q1MFPj3vMsej4CfGDZzM")
+client = OpenAI(api_key="sk-proj-_OEmzGKRKDHglobbUPKXS7FGI")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -17,11 +17,12 @@ if prompt := st.chat_input("Aapki kya madad kar sakte hain?"):
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    response = client.models.generate_content(
-        model="gemini-1.5-flash",
-        contents=prompt,
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": prompt}]
     )
     
+    bot_reply = response.choices[0].message.content
     with st.chat_message("assistant"):
-        st.markdown(response.text)
-    st.session_state.messages.append({"role": "assistant", "content": response.text})
+        st.markdown(bot_reply)
+    st.session_state.messages.append({"role": "assistant", "content": bot_reply})
